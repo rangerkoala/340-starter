@@ -1,6 +1,24 @@
+/****** CSS Variables ***************/
+:root{
+    --primary-color: #01161e; 
+    --secondary-color: #124559; 
+    --accent1-color: #598392; 
+    --back-color: white;
+    --heading-font: "Bebas Neue", sans-serif;
+    --body-font: "Source Sans 3", sans-serif;
+}
+
 /******* Change Box Model ***************/
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
+
+/******* Body Styles ***************/
+body {
+    font-family: var(--body-font);
+    background-color: var(--back-color);
+    color: var(--primary-color);
+}
+
