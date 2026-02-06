@@ -28,4 +28,16 @@ async function getInventoryByClassificationId(classification_id) {
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId};
+async function getVehicleById(invId) {
+  try {
+    const data = await pool.query(
+      "SELECT * FROM inventory WHERE inv_id = $1",
+      [invId]
+    )
+    return data.rows[0]
+  } catch (error) {
+    return error.message
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById};

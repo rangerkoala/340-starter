@@ -174,6 +174,35 @@ h1 {
   margin: 0;
 }
 
+.vehicle-detail {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.vehicle-image {
+  margin: 1rem;
+}
+
+.vehicle-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.vehicle-info {
+  padding: 1rem;
+}
+
+.highlights {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 4px solid #007bff;
+}
+
 
 
 @media (min-width: 760px) {
@@ -200,4 +229,51 @@ h1 {
   #inv-display {
     grid-template-columns: 1fr 1fr;
   }
+
+  .vehicle-detail {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .vehicle-detail {
+  grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Error Page Styles */
+.error-container {
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.error-container h1 {
+  color: #c41e3a;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  font-size: 1.1rem;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-left: 4px solid #c41e3a;
+  text-align: left;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--secondary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.back-link:hover {
+  background-color: var(--primary-color);
 }
