@@ -45,4 +45,119 @@ invCont.triggerError = async (req, res, next) => {
   throw new Error("Intentional test error triggered - error handling middleware is working!")
 }
 
+/* ***************************
+ *  Deliver add-classification view
+ * ************************** */
+invCont.buildAddClassification = async (req, res, next) => {
+  let nav = await utilities.getNav()
+  res.render("inventory/add-classification", {
+    title: "Add Classification",
+    nav,
+    errors: null,
+    classification_name: null,
+  })
+}
+
+/* ***************************
+ *  Process add-classification form
+ * ************************** */
+invCont.addClassification = async (req, res, next) => {
+  const { classification_name } = req.body
+  try {
+    const insertResult = await invModel.insertClassification(classification_name)
+    if (insertResult) {
+      req.flash('notice', `Success: ${classification_name} added.`)
+      let nav = await utilities.getNav()
+      return res.render('inventory/management', {
+        title: 'Inventory Management',
+        nav,
+      })
+    } else {
+      let nav = await utilities.getNav()
+      req.flash('notice', 'Sorry, adding classification failed.')
+      return res.render('inventory/add-classification', {
+        title: 'Add Classification',
+        nav,
+        errors: null,
+        classification_name,
+      })
+    }
+  } catch (error) {
+    return next(error)
+  }
+}
+
+
+/* ***************************
+ *  Deliver add-inventory view
+ * ************************** */
+invCont.buildAddInventory = async (req, res, next) => {
+  let nav = await utilities.getNav()
+  let classificationList = await utilities.buildClassificationList()
+  res.render("inventory/add-inventory", {
+    title: "Add Inventory",
+    nav,
+    classificationList,
+    errors: null,
+    inv_make: null,
+    inv_model: null,
+    inv_year: null,
+    inv_description: null,
+    inv_image: null,
+    inv_thumbnail: null,
+    inv_price: null,
+    inv_miles: null,
+    inv_color: null,
+    classification_id: null,
+  })
+}
+
+/* ***************************
+ *  Process add-inventory form
+ * ************************** */
+invCont.addInventory = async (req, res, next) => {
+  const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
+  try {
+    const insertResult = await invModel.insertInventory(inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id)
+    if (insertResult) {
+      req.flash('notice', `Success: ${inv_make} ${inv_model} added.`)
+      let nav = await utilities.getNav()
+      return res.render('inventory/management', {
+        title: 'Inventory Management',
+        nav,
+      })
+    } else {
+      let nav = await utilities.getNav()
+      let classificationList = await utilities.buildClassificationList(classification_id)
+      req.flash('notice', 'Sorry, adding vehicle failed.')
+      return res.render('inventory/add-inventory', {
+        title: 'Add Inventory',
+        nav,
+        classificationList,
+        errors: null,
+        inv_make,
+        inv_model,
+        inv_year,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_miles,
+        inv_color,
+        classification_id,
+      })
+    }
+  } catch (error) {
+    return next(error)
+  }
+}
+
+invCont.buildManagement = async (req, res, next) => {
+  let nav = await utilities.getNav()
+  res.render("inventory/management", {
+    title: "Management",
+    nav,
+  })
+}
+
 module.exports = invCont

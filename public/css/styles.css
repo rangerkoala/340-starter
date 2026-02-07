@@ -203,6 +203,21 @@ h1 {
   border-left: 4px solid #007bff;
 }
 
+.notice {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  padding: 1rem;
+  margin: 1rem 0.3rem;
+  border-left: 4px solid #0c5460;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  margin: 1rem 0.3rem;
+  border-left: 4px solid #721c24;
+}
 
 
 @media (min-width: 760px) {
@@ -276,4 +291,114 @@ h1 {
 
 .back-link:hover {
   background-color: var(--primary-color);
+}
+
+/* Login Container Styles */
+.login-container, .form-container {
+  padding: 2rem 1rem;
+  max-width: 500px;
+  margin: 2rem auto;
+  background-color: var(--back-color);
+  border-radius: 8px;
+}
+
+.login-container h1 {
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-container form, .form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container label, .form-container label {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.login-container input, .form-container input {
+  padding: 0.75rem;
+  border: 2px solid var(--accent1-color);
+  border-radius: 4px;
+  font-family: var(--body-font);
+  font-size: 1rem;
+  color: var(--primary-color);
+  transition: border-color 0.3s ease;
+}
+
+.login-container input:focus, .form-container input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 5px rgba(18, 69, 89, 0.3);
+}
+
+.password-rules {
+  font-size: 0.85rem;
+  color: var(--secondary-color);
+  margin-top: 0.25rem;
+  display: block;
+  font-style: italic;
+}
+
+.login-container button, .form-container button {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--secondary-color);
+  color: var(--back-color);
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-container button:hover, .form-container button:hover {
+  background-color: var(--primary-color);
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--primary-color);
+}
+
+.register-link a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.register-link a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+@media (min-width: 760px) {
+  .login-container {
+    border: 2px solid var(--secondary-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Inventory Management Styles */
+.management-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.management-links a {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--secondary-color);
+  color: var(--back-color);
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
