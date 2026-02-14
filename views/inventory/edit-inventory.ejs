@@ -1,0 +1,52 @@
+<%- messages() %>
+
+<% if (errors) { %>
+  <div class="notice">
+    <ul>
+      <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
+
+<div class="form-container">
+  <h1><%= title %></h1>
+
+  <form action="/inv/update/" method="post" class="inventory-form" id="updateForm">
+    
+    <label for="inv_make">Make:</label>
+    <input type="text" id="inv_make" name="inv_make" required value="<%= inv_make || '' %>">
+
+    <label for="inv_model">Model:</label>
+    <input type="text" id="inv_model" name="inv_model" required value="<%= inv_model || '' %>">
+
+    <label for="inv_year">Year (4 digits):</label>
+    <input type="text" id="inv_year" name="inv_year" required pattern="^\d{4}$" title="Please enter a 4-digit year" value="<%= inv_year || '' %>">
+
+    <label for="inv_description">Description (minimum 10 characters):</label>
+    <textarea id="inv_description" name="inv_description" required minlength="10"><%= inv_description || '' %></textarea>
+
+    <label for="inv_image">Image Path:</label>
+    <input type="text" id="inv_image" name="inv_image" required placeholder="/images/vehicles/no-image.png" value="<%= inv_image || '' %>">
+
+    <label for="inv_thumbnail">Thumbnail Path:</label>
+    <input type="text" id="inv_thumbnail" name="inv_thumbnail" required placeholder="/images/vehicles/no-image-tn.png" value="<%= inv_thumbnail || '' %>">
+
+    <label for="inv_price">Price:</label>
+    <input type="number" id="inv_price" name="inv_price" required step="0.01" min="0" value="<%= inv_price || '' %>">
+
+    <label for="inv_miles">Miles:</label>
+    <input type="number" id="inv_miles" name="inv_miles" required min="0" value="<%= inv_miles || '' %>">
+
+    <label for="inv_color">Color:</label>
+    <input type="text" id="inv_color" name="inv_color" required value="<%= inv_color || '' %>">
+
+    <label for="classificationList">Classification:</label>
+    <%- classificationList %>
+
+    <button type="submit" disabled>Update Vehicle</button>
+    <input type="hidden" name="inv_id" value="<%= inv_id %>">
+  </form>
+</div>
+<script src="/js/inv-update.js"></script>
