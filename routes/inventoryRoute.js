@@ -18,31 +18,31 @@ router.get("/detail/:invId", utilities.handleErrors(invController.getInventoryDe
 router.get("/error-test", utilities.handleErrors(invController.triggerError))
 
 // Route to build management view
-router.get("/management", utilities.handleErrors(invController.buildManagement))
+router.get("/management", utilities.checkJWTToken, utilities.checkEmployeeOrAdmin, utilities.handleErrors(invController.buildManagement))
 
 // Routes to add classification
-router.get('/add-classification', utilities.handleErrors(invController.buildAddClassification))
-router.post('/add-classification', invValidate.addClassificationRules(), invValidate.checkClassificationData, utilities.handleErrors(invController.addClassification))
+router.get('/add-classification', utilities.checkJWTToken, utilities.checkEmployeeOrAdmin, utilities.handleErrors(invController.buildAddClassification))
+router.post('/add-classification', utilities.checkJWTToken, utilities.checkEmployeeOrAdmin, invValidate.addClassificationRules(), invValidate.checkClassificationData, utilities.handleErrors(invController.addClassification))
 
 // Routes to add inventory
-router.get('/add-inventory', utilities.handleErrors(invController.buildAddInventory))
-router.post('/add-inventory', invValidate.addInventoryRules(), invValidate.checkInventoryData, utilities.handleErrors(invController.addInventory))
+router.get('/add-inventory', utilities.checkJWTToken, utilities.checkEmployeeOrAdmin, utilities.handleErrors(invController.buildAddInventory))
+router.post('/add-inventory', utilities.checkJWTToken, utilities.checkEmployeeOrAdmin, invValidate.addInventoryRules(), invValidate.checkInventoryData, utilities.handleErrors(invController.addInventory))
 
 // Route to get inventory items by classification_id in JSON format (for AJAX)
-router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+router.get("/getInventory/:classification_id", utilities.checkJWTToken, utilities.checkEmployeeOrAdmin, utilities.handleErrors(invController.getInventoryJSON))
 
 // Route to deliver edit-inventory view for a single vehicle
-router.get('/edit/:invId', utilities.handleErrors(invController.buildEditInventory))
+router.get('/edit/:invId', utilities.checkJWTToken, utilities.checkEmployeeOrAdmin, utilities.handleErrors(invController.buildEditInventory))
 
 // Route to handle inventory update form submission
-router.post("/update/", invValidate.addInventoryRules(), invValidate.checkUpdateData, utilities.handleErrors(invController.updateInventory))
+router.post("/update/", utilities.checkJWTToken, utilities.checkEmployeeOrAdmin, invValidate.addInventoryRules(), invValidate.checkUpdateData, utilities.handleErrors(invController.updateInventory))
 
 
 // Route to deliver delete-inventory view for a single vehicle
-router.get('/delete/:invId', utilities.handleErrors(invController.buildDeleteInventory))
+router.get('/delete/:invId', utilities.checkJWTToken, utilities.checkEmployeeOrAdmin, utilities.handleErrors(invController.buildDeleteInventory))
 
 // Route to handle inventory delete submission
-router.post("/deleted/", utilities.handleErrors(invController.deleteInventory))
+router.post("/deleted/", utilities.checkJWTToken, utilities.checkEmployeeOrAdmin, utilities.handleErrors(invController.deleteInventory))
 
 
 module.exports = router;
