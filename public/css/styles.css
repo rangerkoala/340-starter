@@ -325,7 +325,7 @@ th, td {
 }
 
 /* Login Container Styles */
-.login-container, .form-container {
+.login-container, .form-container, .inventory-form {
   padding: 2rem 1rem;
   max-width: 500px;
   margin: 2rem auto;
@@ -339,19 +339,19 @@ th, td {
   margin-bottom: 2rem;
 }
 
-.login-container form, .form-container form {
+.login-container form, .form-container form, .inventory-form {
   display: flex;
   flex-direction: column;
 }
 
-.login-container label, .form-container label {
+.login-container label, .form-container label, .inventory-form label {
   font-weight: 600;
   color: var(--primary-color);
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
 
-.login-container input, .form-container input {
+.login-container input, .form-container input, .inventory-form input {
   padding: 0.75rem;
   border: 2px solid var(--accent1-color);
   border-radius: 4px;
@@ -361,7 +361,7 @@ th, td {
   transition: border-color 0.3s ease;
 }
 
-.login-container input:focus, .form-container input:focus {
+.login-container input:focus, .form-container input:focus, .inventory-form input:focus {
   outline: none;
   border-color: var(--secondary-color);
   box-shadow: 0 0 5px rgba(18, 69, 89, 0.3);
@@ -375,7 +375,7 @@ th, td {
   font-style: italic;
 }
 
-.login-container button, .form-container button {
+.login-container button, .form-container button, .inventory-form button {
   margin-top: 1.5rem;
   padding: 0.75rem 1.5rem;
   background-color: var(--secondary-color);
@@ -388,7 +388,7 @@ th, td {
   transition: background-color 0.3s ease;
 }
 
-.login-container button:hover, .form-container button:hover {
+.login-container button:hover, .form-container button:hover, .inventory-form button:hover {
   background-color: var(--primary-color);
 }
 

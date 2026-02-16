@@ -111,4 +111,66 @@ async function deleteInventory(inv_id) {
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById, getClassificationByName, insertClassification, insertInventory, updateInventory, deleteInventory};
+/* ***************************
+ *  Search inventory by filters
+ * ************************** */
+async function searchInventory(filters = {}) {
+  try {
+    const where = []
+    const values = []
+
+    if (filters.classification_id) {
+      values.push(filters.classification_id)
+      where.push(`i.classification_id = $${values.length}`)
+    }
+
+    if (filters.min_price !== undefined && filters.min_price !== null) {
+      values.push(filters.min_price)
+      where.push(`i.inv_price >= $${values.length}`)
+    }
+
+    if (filters.max_price !== undefined && filters.max_price !== null) {
+      values.push(filters.max_price)
+      where.push(`i.inv_price <= $${values.length}`)
+    }
+
+    if (filters.min_year !== undefined && filters.min_year !== null) {
+      values.push(filters.min_year)
+      where.push(`i.inv_year >= $${values.length}`)
+    }
+
+    if (filters.max_year !== undefined && filters.max_year !== null) {
+      values.push(filters.max_year)
+      where.push(`i.inv_year <= $${values.length}`)
+    }
+
+    if (filters.max_miles !== undefined && filters.max_miles !== null) {
+      values.push(filters.max_miles)
+      where.push(`i.inv_miles <= $${values.length}`)
+    }
+
+    if (filters.q) {
+      values.push(`%${filters.q}%`)
+      where.push(`(i.inv_make ILIKE $${values.length} OR i.inv_model ILIKE $${values.length})`)
+    }
+
+    let sql = `SELECT i.*, c.classification_name
+      FROM public.inventory AS i
+      JOIN public.classification AS c
+      ON i.classification_id = c.classification_id`
+
+    if (where.length > 0) {
+      sql += ` WHERE ${where.join(" AND ")}`
+    }
+
+    sql += " ORDER BY i.inv_year DESC, i.inv_price ASC LIMIT 50"
+
+    const result = await pool.query(sql, values)
+    return result.rows
+  } catch (error) {
+    console.error('searchInventory error ' + error)
+    return []
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById, getClassificationByName, insertClassification, insertInventory, updateInventory, deleteInventory, searchInventory};

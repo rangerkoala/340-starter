@@ -14,6 +14,12 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 // Route to build vehicle detail view
 router.get("/detail/:invId", utilities.handleErrors(invController.getInventoryDetail))
 
+// Route to build advanced inventory search view
+router.get('/search', utilities.handleErrors(invController.buildSearchView))
+
+// Route to process advanced inventory search
+router.get('/search/results', invValidate.searchRules(), invValidate.checkSearchData, utilities.handleErrors(invController.searchInventory))
+
 // Route to test error handling (Task 3)
 router.get("/error-test", utilities.handleErrors(invController.triggerError))
 

@@ -22,6 +22,7 @@ Util.getNav = async function (req, res, next) {
       "</a>"
     list += "</li>"
   })
+  list += '<li><a href="/inv/search" title="Use advanced inventory search">Advanced Search</a></li>'
   list += "</ul>"
   return list
 }

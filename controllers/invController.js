@@ -164,6 +164,69 @@ invCont.buildManagement = async (req, res, next) => {
   })
 }
 
+/* ***************************
+ *  Build advanced search view
+ * ************************** */
+invCont.buildSearchView = async (req, res, next) => {
+  const nav = await utilities.getNav()
+  const classificationList = await utilities.buildClassificationList()
+  res.render("inventory/search", {
+    title: "Advanced Inventory Search",
+    nav,
+    errors: null,
+    classificationList,
+    filters: {
+      classification_id: "",
+      min_price: "",
+      max_price: "",
+      min_year: "",
+      max_year: "",
+      max_miles: "",
+      q: "",
+    },
+    grid: "",
+    hasSearched: false,
+  })
+}
+
+/* ***************************
+ *  Process advanced search
+ * ************************** */
+invCont.searchInventory = async (req, res, next) => {
+  const filters = {
+    classification_id: req.query.classification_id ? parseInt(req.query.classification_id) : null,
+    min_price: req.query.min_price ? parseFloat(req.query.min_price) : null,
+    max_price: req.query.max_price ? parseFloat(req.query.max_price) : null,
+    min_year: req.query.min_year ? parseInt(req.query.min_year) : null,
+    max_year: req.query.max_year ? parseInt(req.query.max_year) : null,
+    max_miles: req.query.max_miles ? parseInt(req.query.max_miles) : null,
+    q: req.query.q ? req.query.q.trim() : null,
+  }
+
+  const data = await invModel.searchInventory(filters)
+  const grid = await utilities.buildClassificationGrid(data)
+  const nav = await utilities.getNav()
+  const classificationList = await utilities.buildClassificationList(filters.classification_id)
+
+  res.render("inventory/search", {
+    title: "Advanced Inventory Search",
+    nav,
+    errors: null,
+    classificationList,
+    filters: {
+      classification_id: req.query.classification_id || "",
+      min_price: req.query.min_price || "",
+      max_price: req.query.max_price || "",
+      min_year: req.query.min_year || "",
+      max_year: req.query.max_year || "",
+      max_miles: req.query.max_miles || "",
+      q: req.query.q || "",
+    },
+    grid,
+    hasSearched: true,
+  })
+}
+
 
 /* ***************************
  *  Return Inventory by Classification As JSON
